@@ -1,0 +1,15 @@
+Git är ett versionshanteringssystem som låter dig spara olika versioner av ditt projekt och samarbeta med andra utan att förlora historik eller riskera att skriva över varandras kod. När du börjar i en ny mapp använder du kommandot git init för att starta ett nytt Git-repo. Det betyder att Git börjar övervaka alla filer i den mappen och registrera ändringar du gör. Om du istället vill jobba med ett projekt som redan finns på t.ex. GitHub, använder du git clone <url>, vilket laddar ner hela projektet inklusive dess historik till din dator.
+
+När du har gjort ändringar i koden kan du använda git status för att se vilka filer som har ändrats, vilka som ännu inte är tillagda för commit, och vilka som är redo att sparas. För att tala om för Git vilka filer du vill inkludera i nästa version använder du git add följt av filnamnet, eller git add . för att lägga till alla ändrade filer samtidigt. Detta kallas att "stagea" filer – du förbereder dem för att sparas.
+
+När du är nöjd med vad som ska sparas gör du en commit, med kommandot git commit -m "beskrivande meddelande". En commit är som ett ögonblicksfoto av projektet, och meddelandet hjälper dig eller andra att förstå vad som ändrades. Många tänker på commits som små milstolpar som visar hur projektet utvecklas steg för steg.
+
+Om du jobbar mot ett fjärrrepo, till exempel på GitHub, behöver du först koppla ditt lokala repo till det med git remote add origin <url>. Därefter kan du ladda upp dina commits med git push, vilket skickar alla dina lokala versioner till molnet. Om andra har gjort ändringar online kan du hämta hem deras uppdateringar med git pull, som både laddar ner och slår ihop de senaste versionerna med din egen kod.
+
+För att se hur projektets historik har utvecklats kan du använda git log, som visar en lista över tidigare commits med deras meddelanden, datum och författare. Om du behöver växla mellan olika arbetsversioner av projektet används git checkout. Det kan vara till en tidigare commit eller till en annan gren (branch).
+
+Brancher är ett sätt att experimentera utan att röra huvudversionen. Du kan skapa en ny gren med git branch <namn> och byta till den med git checkout <namn>, eller göra båda samtidigt med git checkout -b <namn>. När du är nöjd med ändringarna i din gren kan du slå ihop dem med huvudgrenen (ofta kallad main eller master) med git merge <gren-namn>.
+
+Slutligen finns git diff, som låter dig se exakt vilka rader som har ändrats mellan versioner, och git reset, som kan ångra ändringar – antingen i staging-området eller i hela historiken, beroende på hur du använder det.
+
+Om man ser på helheten kan du tänka på Git som en tidsmaskin för kod. Du initierar ett repo för att börja spåra, lägger till och commitar ändringar för att spara milstolpar, använder push och pull för att dela med andra, och arbetar med brancher för att testa idéer utan risk. Det tar lite tid att vänja sig vid begreppen, men när du börjar förstå flödet – init, add, commit, push, pull – blir Git ett kraftfullt verktyg som låter dig jobba tryggt och strukturerat med din kod över tid.
