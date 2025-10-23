@@ -1,4 +1,5 @@
 import { useState, useRef } from 'react';
+import { chain } from '@chatapp/chains';
 
 export const useChatLogic = () => {
     const [messages, setMessages] = useState([]);
@@ -13,7 +14,7 @@ export const useChatLogic = () => {
         setLoading(true);
         setMessages((prev) => [...prev, { text: question, role: 'user' }]);
         inputRef.current.value = '';
-        // const answer = await chain.invoke({question});
+        const answer = await chain.invoke({question});
 
         setMessages((prev) => [
             ...prev,
