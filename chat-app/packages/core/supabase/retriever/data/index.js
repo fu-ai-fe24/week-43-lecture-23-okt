@@ -3,7 +3,7 @@ import { OllamaEmbeddings } from "@langchain/ollama";
 import { client } from '@chatapp/client';
 
 const embeddings = new OllamaEmbeddings({
-    model : 'llama3.1:8b'
+    model : 'llama3.2:latest'
 });
 
 const vectorStore = new SupabaseVectorStore(

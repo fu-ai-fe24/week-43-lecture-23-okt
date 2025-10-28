@@ -40,3 +40,42 @@ export const chain = RunnableSequence.from([
     },
     answerChain
 ]);
+
+
+
+
+
+
+
+
+
+
+
+
+// Denna delen av koden är enbart ett exempel och fungerar inte
+const answer = await chain.invoke({question : 'Vem är Harry Potter?'});
+
+const chain = RunnableSequence.from([
+    // 1. Konvertera användarens fråga till en standalone question
+    async ({question}) => {
+        const standaloneQuestion = await llm.invoke(
+            await standaloneQuestionTemplate.format({ question })
+        )
+        console.log(standaloneQuestion);
+        
+        return { standaloneQuestion, question }
+    },
+    // 2. Använda standalone question för att söka i databasen, och konvertera till en kontextsträng
+    async ({ standaloneQuestion, question }) => {
+        const data = retriever.invoke(standaloneQuestion);
+        const context = combineDocuments(data);
+        return { context, question  }
+    },
+    // 3. Skicka orginalfråga(fråga och användarens kontext) OCH kontext(från databasen) till din llm
+    async ({ context, question }) => {
+        const finalAnswer = await llm.invoke(
+            await answerTemplate.format({ constext : context, question : question })
+        )
+        return finalAnswer;
+    }
+]);
