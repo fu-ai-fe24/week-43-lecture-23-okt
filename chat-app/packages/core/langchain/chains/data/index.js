@@ -31,11 +31,12 @@ const retrieverChain = RunnableSequence.from([
 
 // 3. Använda kontexten och den ursprungliga frågan för att fråga språkmodellen
 // const answerChain = RunnableSequence.from([
-//     answerTemplate,
-//     llm,
-//     new StringOutputParser()
-// ]);
+    //     answerTemplate,
+    //     llm,
+    //     new StringOutputParser()
+    // ]);
 
+// 3. Använda kontexten och den ursprungliga frågan för att fråga språkmodellen
 const conversationChain = new ConversationChain({
     llm,
     prompt : answerTemplate,
@@ -51,7 +52,7 @@ export const chain = RunnableSequence.from([
         context : retrieverChain,
         question : ({ originalQuestion }) => originalQuestion.question
     },
-    answerChain
+    conversationChain
 ]);
 
 
