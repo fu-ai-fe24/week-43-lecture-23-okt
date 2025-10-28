@@ -4,6 +4,14 @@ import { standaloneQuestionTemplate, answerTemplate } from '@chatapp/templates';
 import { combineDocuments } from '@chatapp/combinedocuments';
 import { llm } from '@chatapp/llm';
 import { StringOutputParser } from '@langchain/core/output_parsers';
+import { BufferMemory } from 'langchain/memory';
+import { ConversationChain } from 'langchain/chains';
+
+const memory = new BufferMemory({
+    memoryKey : 'chat_history',
+    returnMessages : true,
+    inputKey : 'question'
+});
 
 // 1. Konvertera frpgan till en standalone question
 const standaloneQuestionChain = RunnableSequence.from([
@@ -21,13 +29,18 @@ const retrieverChain = RunnableSequence.from([
     combineDocuments
 ]);
 
-
 // 3. Använda kontexten och den ursprungliga frågan för att fråga språkmodellen
-const answerChain = RunnableSequence.from([
-    answerTemplate,
+// const answerChain = RunnableSequence.from([
+//     answerTemplate,
+//     llm,
+//     new StringOutputParser()
+// ]);
+
+const conversationChain = new ConversationChain({
     llm,
-    new StringOutputParser()
-]);
+    prompt : answerTemplate,
+    memory
+});
 
 export const chain = RunnableSequence.from([
     {
@@ -40,8 +53,6 @@ export const chain = RunnableSequence.from([
     },
     answerChain
 ]);
-
-
 
 
 
